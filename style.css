@@ -1,0 +1,31 @@
+body {
+    background-image: url("loginback.jpg");
+    background-size: cover;
+}
+
+#name{
+    width: 400px;
+}
+
+#container{
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    height: 100vh;
+    padding-bottom: 200px;
+}
+
+#form {
+    display: flex;
+    padding-right: 5%;
+}
+
+.btn.btn-primary{
+    width: 200px;
+}
+
+.text{
+    width: 200px;
+}
