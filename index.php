@@ -16,7 +16,7 @@
 <div id="container">
     <div id="name">
         <h1> SUM </h1>
-        <h2> Twoje forum wędkarskie eee</h2>
+        <h2> Twoje forum wędkarskie </h2>
     </div>
 
     <div id="form">
