@@ -1,1 +1,4 @@
-SUM- Twoje forum wędkarskie
+<?php
+    session_start();
+?>
+DUPA
