@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="style.css">
 <?php
     session_start();
-    require 'imports.php';
+    require 'head.php';
     require 'conn.php';
     $conn = connection();
+    error_reporting(0); //for double session start after forum.php header here
+    unset($_SESSION['logged']); //tymczasowe 8)
 ?>
 
 <body>
@@ -15,16 +18,17 @@
         </div>
 
         <div class="form">
-            <form class="mb-3" method="POST">
+            <form method="POST">
                 <input class="text" type="text" name="login" placeholder="nazwa użytkownika"> </br>
                 <input class="text" type="password" name="password" placeholder="hasło"> </br>
                 <button class="btn btn-primary" type="submit"> zaloguj się </button>
             </form>
         </div>
-        <div class="form mb-3">
+        <div class="form">
             <a href="registration.php"> <button class="btn btn-primary" type="submit"> rejestracja </button> </a>
         </div>
     </div>
+
     <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $getLogin = "SELECT login, password FROM users WHERE login = \"{$_POST['login']}\"";
@@ -32,9 +36,13 @@
             $userInfo = mysqli_fetch_array($query);
             if (sha1($_POST['password']) !== $userInfo['password'] || $_POST['login'] !== $userInfo['login']) {
                 $message = "błędne hasło lub nazwa użytkownika";
-                echo "<script type='text/javascript'>alert('$message');</script>";            
-            } else {
-                header('location: /forum.php');
+                echo "<script type='text/javascript'>alert('$message');</script>";
+                // $_SESSION['logged'] = true;
+            } elseif ((sha1($_POST['password']) === $userInfo['password'] || $_POST['login'] === $userInfo['login'])) {
+                header('location: forum.php');
+                $_SESSION['logged'] = true;
+                $_SESSION['user'] = $_POST['login'];
+                // var_dump($_SESSION['logged']);
             }
         }
     ?>

@@ -1,9 +1,10 @@
 <?php
     session_start();
     require 'conn.php';
-    require 'imports.php';
-    $conn = connection();
+    require 'head.php';
+    $conn = connection();    
 ?>
+<link rel="stylesheet" href="style.css">
 <body>
     <div id="container">
         <div id="name">
@@ -11,11 +12,14 @@
                 <h2> rejestracja </h2>
         </div>
         <div class="form">
-            <form class="mb-3" method="POST">
+            <form method="POST">
                 <input class="text" type="text" name="login" placeholder="nazwa użytkownika"> </br>
                 <input class="text" type="password" name="password" placeholder="hasło"> </br>
                 <button class="btn btn-primary" type="submit"> zarejestruj się </button>
             </form>
+        </div>
+        <div class="form">
+            <a href="index.php"> <button class="btn btn-primary" type="submit"> powrót </button> </a>
         </div>
     </div>
     <?php
@@ -27,12 +31,15 @@
             // var_dump($login);
             if ($_POST['login'] === $login['login']) {
                 $message = "ten login jest już zajęty";
-                echo "<script type='text/javascript'>alert('$message'); </script>"; 
+                echo "<script type='text/javascript'>alert('$message'); </script>";
+            } elseif (strlen(($_POST['login'])) < 3 || strlen(($_POST['password'])) < 5) {
+                $message = "login lub hasło są za krótkie";
+                echo "<script type='text/javascript'>alert('$message'); </script>";
             } else {
                 $register = "INSERT INTO users (login, password, users.rank_ID) VALUES (\"{$_POST['login']}\", \"{$encPass}\", 1)";
                 // var_dump($register);
                 mysqli_query($conn, $register);
-                header('location: /forum.php');                
+                header('location: /index.php');                
             }
         }
     ?>

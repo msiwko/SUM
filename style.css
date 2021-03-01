@@ -1,5 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 body {
-    background-image: url("loginback.jpg");
+    background-image: url("background.jpg");
     background-size: cover;
 }
 
@@ -14,7 +18,7 @@ body {
     text-align: center;
     justify-content: center;
     height: 100vh;
-    padding-bottom: 200px;
+    /* padding-bottom: 200px; */
 }
 
 .form {
@@ -24,6 +28,7 @@ body {
 
 .btn.btn-primary{
     width: 200px;
+    margin-top: 10px;
 }
 
 .text{

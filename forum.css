@@ -1,0 +1,58 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+a {
+    text-decoration: none;
+}
+
+nav {
+    width: 100vw;
+    height: 5vw;
+    background-color: #008543;
+}
+
+nav>h1 {
+    color: black;
+    display: flex;
+    justify-content: center;
+}
+
+nav>h2 {
+    color: black;
+    display: flex;
+    justify-content: center; 
+}
+
+#postForm {
+    margin-top: 1%;
+    display: flex;
+    justify-content: center;
+}
+
+#postInput {
+    width: 30vw;
+    height: 8vw;
+}
+
+#postSubmit {
+    float: right;
+    background-color: #008543;
+    border-radius: 10px;
+    border: none;
+    width: 5vw;
+    height: 4vh;
+    text-align: center;
+    font-weight: bold;
+}
+
+textarea {
+    resize: none;
+ }
+
+ #postLabel{
+    margin-top: 1%;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+ }
