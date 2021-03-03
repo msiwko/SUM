@@ -15,6 +15,8 @@
 ?>
 <link rel="stylesheet" href="forum.css">
 <nav>
+    <img id="sumL" src="photos/sum.png">
+    <img id="sumR" src="photos/sum.png">
     <div class="left">
     <button class="button" name="profile" id="profile" href="profile.php"> profil </button>
     </div>
@@ -23,28 +25,26 @@
         <h2> Twoje forum wędkarskie </h2>
     </div>
     <div class="right">
-        <button class="button" name="logout" id="logout" href="index.php"> wyloguj </button>
+        <a href="index.php"> <button class="button" name="logout" id="logout"> wyloguj </button></a>
     </div>        
 </nav>
 
 <body>
     <div id="container">
         <div class="left">
-            aaa
+            
         </div>
         <div class="middle">
             <div id="postForm">
                 <label id="postLabel" for="content"> Napisz swój post! </label>
                 <textarea maxlength="2048" name="content" form="post" id="content"> </textarea>
                 <form id="post" method="POST">
-                    <!-- <label id="postLabel"> Napisz swój post </label> -->
-                    <!-- <input type="textarea" name="content" id="postInput"> <br> -->
                     <button class="button" id="postSubmit" type="submit" name="submit"> Opublikuj </button>
                 </form>                
             </div>
         </div>
         <div class="right">
-           aaa
+           
         </div>
     </div>    
 

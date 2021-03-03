@@ -4,12 +4,23 @@
 }
 
 body {
-    background-image: url("photos/4096x3072_boat-canoe-lake.jpg");
+    background-image: url("photos/background.jpg");
     background-size: cover;
 }
 
 a {
     text-decoration: none;
+}
+
+#sumL {
+    position: absolute;
+    left: 650px;
+}
+
+#sumR {
+    position: absolute;
+    right: 650px;
+    transform: scaleX(-1);
 }
 
 nav {

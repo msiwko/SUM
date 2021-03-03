@@ -6,8 +6,8 @@
     require 'head.php';
     require 'conn.php';
     $conn = connection();
-    error_reporting(0); //for double session start after forum.php header here
-    unset($_SESSION['logged']); //tymczasowe 8)
+    error_reporting(0); 
+    unset($_SESSION['logged']);
 ?>
 
 <body>
@@ -26,6 +26,7 @@
         </div>
         <div class="form">
             <a href="registration.php"> <button class="btn btn-primary" type="submit"> rejestracja </button> </a>
+            <a href=passrecov.php> <button class="btn btn-primary" type="submit"> przywróć hasło </button> </a>
         </div>
     </div>
 

@@ -18,12 +18,13 @@ body {
     text-align: center;
     justify-content: center;
     height: 100vh;
-    /* padding-bottom: 200px; */
+    padding-bottom: 200px;
 }
 
 .form {
     display: flex;
     padding-right: 5%;
+    flex-direction: column;
 }
 
 .btn.btn-primary{
