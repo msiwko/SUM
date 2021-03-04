@@ -18,7 +18,7 @@
     <img id="sumL" src="photos/sum.png">
     <img id="sumR" src="photos/sum.png">
     <div class="left">
-    <button class="button" name="profile" id="profile" href="profile.php"> profil </button>
+        <button class="button" name="profile" id="profile" href="profile.php"> profil </button>
     </div>
     <div class="middle">
         <h1> SUM </h1> 
