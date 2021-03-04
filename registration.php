@@ -15,6 +15,7 @@
             <form method="POST">
                 <input class="text" type="text" name="login" placeholder="nazwa użytkownika"> </br>
                 <input class="text" type="password" name="password" placeholder="hasło"> </br>
+                <input class="text" type="question" name="question" placeholder="imię matki (pytanie pomocnicze)"> </br>
                 <button class="btn btn-primary" type="submit"> zarejestruj się </button>
             </form>
         </div>
@@ -36,10 +37,10 @@
                 $message = "login lub hasło są za krótkie";
                 echo "<script type='text/javascript'>alert('$message'); </script>";
             } else {
-                $register = "INSERT INTO users (login, password, users.rank_ID) VALUES (\"{$_POST['login']}\", \"{$encPass}\", 1)";
+                $register = "INSERT INTO users (login, password, question, users.rank_ID) VALUES (\"{$_POST['login']}\", \"{$encPass}\", \"{$_POST['question']}\", 1)";
                 // var_dump($register);
                 mysqli_query($conn, $register);
-                header('location: /index.php');                
+                header('location: /index.php');
             }
         }
     ?>
