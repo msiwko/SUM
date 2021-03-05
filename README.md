@@ -1,5 +1,5 @@
 # TODO
-- PRZYWRACANIE HASŁA
-- POSTY- WYSWIETLANIE
+- WYŚWIETLANIE POSTÓW
 - WYSWIETLANIE PROFILU
-- OKREŚLENIE RANGI PO DODANIU POSTA
+
+Wszystkie aktualne funkcjonalności strony są w 100% sprawne
