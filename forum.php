@@ -12,6 +12,9 @@
     $getID = "SELECT ID from users WHERE login=\"{$_SESSION['user']}\"";
     $query = mysqli_query($conn, $getID);
     $userId = mysqli_fetch_array($query)['ID'];
+    $getRank = "SELECT rank_ID from users WHERE login=\"{$_SESSION['user']}\"";
+    $query = mysqli_query($conn, $getRank);
+    $userRank = mysqli_fetch_array($query)['rank_ID'];
 ?>
 <link rel="stylesheet" href="forum.css">
 <nav>
@@ -49,11 +52,42 @@
     </div>    
 
     <?php
-        if (isset($_POST['submit'])) {
-            if (strlen($_POST['content']) > 2) {
-                var_dump($_POST['content'], $_POST['postSubmit'], $userId);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (strlen($_POST['content']) > 2 ) {
+                // var_dump($_POST['content'], $_POST['submit'], $userId);
                 $publicate = "INSERT INTO posts (content, author_ID) VALUES (\"{$_POST['content']}\", {$userId})";
                 $postQuery = mysqli_query($conn, $publicate);
+                if ($userRank !== 99 || $userRank !== 98) {
+                    $getPosts = "SELECT COUNT(*) AS postcount FROM posts WHERE author_ID = {$userId}";
+                    $postQuery = mysqli_query($conn, $getPosts);
+                    $posts = mysqli_fetch_array($postQuery);
+                    $postsNum = intval($posts['postcount']);
+                    $getComments = "SELECT COUNT(*) AS commentcount FROM comments WHERE comment_author_ID = {$userId}";
+                    $comQuery = mysqli_query($conn, $getComments);
+                    $comments = mysqli_fetch_array($comQuery);
+                    $commentsNum = intval($comments['commentcount']);
+                    $rank = $postsNum + $commentsNum;
+                    // $userIdInt = intval($getID['ID']);   
+                    if ($rank <= 10) {
+                        $rankUpdate = "UPDATE users SET rank_ID = 1 WHERE ID = {$userId}";
+                        $rankQuery = mysqli_query($conn, $rankUpdate);
+                    } elseif ($rank <= 20) {
+                        $rankUpdate = "UPDATE users SET rank_ID = 2 WHERE ID = {$userId}";
+                        $rankQuery = mysqli_query($conn, $rankUpdate);
+                    } elseif ($rank <= 50) {
+                        $rankUpdate = "UPDATE users SET rank_ID = 3 WHERE ID = {$userId}";
+                        $rankQuery = mysqli_query($conn, $rankUpdate);
+                    } elseif ($rank <= 100) {
+                        $rankUpdate = "UPDATE users SET rank_ID = 4 WHERE ID = {$userId}";
+                        $rankQuery = mysqli_query($conn, $rankUpdate);
+                    } elseif ($rank <=250) {
+                        $rankUpdate = "UPDATE users SET rank_ID = 5 WHERE ID = {$userId}";
+                        $rankQuery = mysqli_query($conn, $rankUpdate);
+                    } elseif ($rank <=500) { 
+                        $rankUpdate = "UPDATE users SET rank_ID = 6 WHERE ID = {$userId}";
+                        $rankQuery = mysqli_query($conn, $rankUpdate);
+                    }
+                }
                 header('location: forum.php');
             } else {
                 $message = "post jest za krótki";
