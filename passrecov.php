@@ -9,9 +9,9 @@
 <body>
 <div id="container">
         <div id="name">
+            <h1> SUM </h1>
             <h2> Utwórz nowe hasło </h2>
         </div>
-
         <div class="form">
             <form method="POST">
                 <input class="text" type="text" name="login" placeholder="nazwa użytkownika"> </br>
