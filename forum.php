@@ -3,6 +3,7 @@
 <?php
     session_start();
     unset($_POST['postSubmit']);
+    unset($_SESSION['REQUEST_METHOD']);
     if($_SESSION['logged'] !== true) {
         header('location: /index.php');
     }
@@ -51,9 +52,8 @@
         </div>
     </div>
 <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         if (strlen($_POST['content']) > 2 ) {
-            // var_dump($_POST['content'], $_POST['submit'], $userId);
             $publicate = "INSERT INTO posts (content, author_ID) VALUES (\"{$_POST['content']}\", {$userId})";
             $postQuery = mysqli_query($conn, $publicate);
             if ($userRank !== 99 || $userRank !== 98) {
@@ -93,7 +93,7 @@
         }
     }
 
-    $getAllPosts = "SELECT content, post_ID, post_date, users.`login` FROM posts JOIN users ON users.`ID`=posts.`author_ID` ORDER BY post_date DESC";
+    $getAllPosts = "SELECT content, post_ID, post_date, users.`login` FROM posts JOIN users ON users.`ID`=posts.`author_ID` ORDER BY post_ID DESC";
     $allPostsQuery = mysqli_query($conn, $getAllPosts);
     $allPosts = mysqli_fetch_all($allPostsQuery, MYSQLI_ASSOC);
     echo 
@@ -122,6 +122,13 @@
                 <button class=\"button\" id=\"comSubmit\" type=\"submit\" name=\"comSubmit\"> Opublikuj </button>
                 <input type=\"hidden\" name=\"id\" value={$post['post_ID']}>
             </form>";
+
+            // if ($_SERVER['REQUEST_METHOD'] === 'POST' && strlen($_POST['comContent']) > 0) {
+            //     $publicate = "INSERT INTO comments (comment_author_ID, post_ID, comment_content) VALUES ($userId, {$_POST['id']}, \"{$_POST['comContent']}\")";
+            //     $postQuery = mysqli_query($conn, $publicate);
+            //     unset($_SESSION['REQUEST_METHOD']);
+            //     header('location: forum.php');
+            // }
         echo
             "</div>";
     }
