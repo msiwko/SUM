@@ -70,7 +70,7 @@ nav {
     font-weight: bold;
 }
 
-#commentForm > .button {
+.button[name="comSubmit"] {
     width: 4vw;
     height: 3vh;
     border-style: solid;
