@@ -2,7 +2,6 @@
 <html lang="en">
 <?php
     session_start();
-    unset($_POST['postSubmit']);
     unset($_SESSION['REQUEST_METHOD']);
     if($_SESSION['logged'] !== true) {
         header('location: /index.php');
@@ -87,9 +86,6 @@
                 }
             }
             header('location: forum.php');
-        } else {
-            $message = "post jest za krótki";
-            echo "<script type='text/javascript'>alert('$message');</script>";
         }
     }
 
