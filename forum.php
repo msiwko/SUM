@@ -11,7 +11,7 @@
     $conn = connection();
     $getID = "SELECT ID from users WHERE login=\"{$_SESSION['user']}\"";
     $query = mysqli_query($conn, $getID);
-    $userId = mysqli_fetch_array($query)['ID'];
+    $_SESSION['userid'] = mysqli_fetch_array($query)['ID'];
     $getRank = "SELECT rank_ID from users WHERE login=\"{$_SESSION['user']}\"";
     $query = mysqli_query($conn, $getRank);
     $userRank = mysqli_fetch_array($query)['rank_ID'];
@@ -53,42 +53,41 @@
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         if (strlen($_POST['content']) > 2 ) {
-            $publicate = "INSERT INTO posts (content, author_ID) VALUES (\"{$_POST['content']}\", {$userId})";
+            $publicate = "INSERT INTO posts (content, author_ID) VALUES (\"{$_POST['content']}\", {$_SESSION['userid']})";
             $postQuery = mysqli_query($conn, $publicate);
             if ($userRank !== 99 || $userRank !== 98) {
-                $getPosts = "SELECT COUNT(*) AS postcount FROM posts WHERE author_ID = {$userId}";
+                $getPosts = "SELECT COUNT(*) AS postcount FROM posts WHERE author_ID = {$_SESSION['userid']}";
                 $postQuery = mysqli_query($conn, $getPosts);
                 $posts = mysqli_fetch_array($postQuery);
                 $postsNum = intval($posts['postcount']);
-                $getComments = "SELECT COUNT(*) AS commentcount FROM comments WHERE comment_author_ID = {$userId}";
+                $getComments = "SELECT COUNT(*) AS commentcount FROM comments WHERE comment_author_ID = {$_SESSION['userid']}";
                 $comQuery = mysqli_query($conn, $getComments);
                 $comments = mysqli_fetch_array($comQuery);
                 $commentsNum = intval($comments['commentcount']);
                 $rank = $postsNum + $commentsNum;  
                 if ($rank <= 10) {
-                    $rankUpdate = "UPDATE users SET rank_ID = 1 WHERE ID = {$userId}";
+                    $rankUpdate = "UPDATE users SET rank_ID = 1 WHERE ID = {$_SESSION['userid']}";
                     $rankQuery = mysqli_query($conn, $rankUpdate);
                 } elseif ($rank <= 20) {
-                    $rankUpdate = "UPDATE users SET rank_ID = 2 WHERE ID = {$userId}";
+                    $rankUpdate = "UPDATE users SET rank_ID = 2 WHERE ID = {$_SESSION['userid']}";
                     $rankQuery = mysqli_query($conn, $rankUpdate);
                 } elseif ($rank <= 50) {
-                    $rankUpdate = "UPDATE users SET rank_ID = 3 WHERE ID = {$userId}";
+                    $rankUpdate = "UPDATE users SET rank_ID = 3 WHERE ID = {$_SESSION['userid']}";
                     $rankQuery = mysqli_query($conn, $rankUpdate);
                 } elseif ($rank <= 100) {
-                    $rankUpdate = "UPDATE users SET rank_ID = 4 WHERE ID = {$userId}";
+                    $rankUpdate = "UPDATE users SET rank_ID = 4 WHERE ID = {$_SESSION['userid']}";
                     $rankQuery = mysqli_query($conn, $rankUpdate);
                 } elseif ($rank <= 250) {
-                    $rankUpdate = "UPDATE users SET rank_ID = 5 WHERE ID = {$userId}";
+                    $rankUpdate = "UPDATE users SET rank_ID = 5 WHERE ID = {$_SESSION['userid']}";
                     $rankQuery = mysqli_query($conn, $rankUpdate);
                 } elseif ($rank <= 500) { 
-                    $rankUpdate = "UPDATE users SET rank_ID = 6 WHERE ID = {$userId}";
+                    $rankUpdate = "UPDATE users SET rank_ID = 6 WHERE ID = {$_SESSION['userid']}";
                     $rankQuery = mysqli_query($conn, $rankUpdate);
                 }
             }
             header('location: forum.php');
         }
     }
-
     $getAllPosts = "SELECT content, post_ID, post_date, users.`login` FROM posts JOIN users ON users.`ID`=posts.`author_ID` ORDER BY post_ID DESC";
     $allPostsQuery = mysqli_query($conn, $getAllPosts);
     $allPosts = mysqli_fetch_all($allPostsQuery, MYSQLI_ASSOC);
@@ -112,21 +111,53 @@
         }
         echo
             "<br><br>
+            <div id=\"comForm\">
             <label class=\"label\" for=\"comContent\"> Dodaj komentarz! </label>
-            <textarea maxlength=\"2048\" name=\"comContent\" form=\"commentForm\" id=\"comContent\"> </textarea>
-            <form id=\"commentForm\" method=\"POST\">
+            <textarea maxlength=\"2048\" name=\"comContent\" form=\"commentForm{$post['post_ID']}\" id=\"comContent\"> </textarea>
+            <form id=\"commentForm{$post['post_ID']}\" method=\"POST\">
                 <button class=\"button\" id=\"comSubmit\" type=\"submit\" name=\"comSubmit\"> Opublikuj </button>
                 <input type=\"hidden\" name=\"id\" value={$post['post_ID']}>
-            </form>";
+            </form>
+            </div>";
 
-            // if ($_SERVER['REQUEST_METHOD'] === 'POST' && strlen($_POST['comContent']) > 0) {
-            //     $publicate = "INSERT INTO comments (comment_author_ID, post_ID, comment_content) VALUES ($userId, {$_POST['id']}, \"{$_POST['comContent']}\")";
-            //     $postQuery = mysqli_query($conn, $publicate);
-            //     unset($_SESSION['REQUEST_METHOD']);
-            //     header('location: forum.php');
-            // }
         echo
             "</div>";
+    }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comSubmit'])) {
+        $publicateCom = "INSERT INTO comments (comment_author_ID, post_ID, comment_content) VALUES ({$_SESSION['userid']}, {$_POST['id']}, \"{$_POST['comContent']}\")";
+        $query = mysqli_query($conn, $publicateCom);
+        if ($userRank !== 99 || $userRank !== 98) {
+            $getPosts = "SELECT COUNT(*) AS postcount FROM posts WHERE author_ID = {$_SESSION['userid']}";
+            $postQuery = mysqli_query($conn, $getPosts);
+            $posts = mysqli_fetch_array($postQuery);
+            $postsNum = intval($posts['postcount']);
+            $getComments = "SELECT COUNT(*) AS commentcount FROM comments WHERE comment_author_ID = {$_SESSION['userid']}";
+            $comQuery = mysqli_query($conn, $getComments);
+            $comments = mysqli_fetch_array($comQuery);
+            $commentsNum = intval($comments['commentcount']);
+            $rank = $postsNum + $commentsNum;  
+            if ($rank <= 10) {
+                $rankUpdate = "UPDATE users SET rank_ID = 1 WHERE ID = {$_SESSION['userid']}";
+                $rankQuery = mysqli_query($conn, $rankUpdate);
+            } elseif ($rank <= 20) {
+                $rankUpdate = "UPDATE users SET rank_ID = 2 WHERE ID = {$_SESSION['userid']}";
+                $rankQuery = mysqli_query($conn, $rankUpdate);
+            } elseif ($rank <= 50) {
+                $rankUpdate = "UPDATE users SET rank_ID = 3 WHERE ID = {$_SESSION['userid']}";
+                $rankQuery = mysqli_query($conn, $rankUpdate);
+            } elseif ($rank <= 100) {
+                $rankUpdate = "UPDATE users SET rank_ID = 4 WHERE ID = {$_SESSION['userid']}";
+                $rankQuery = mysqli_query($conn, $rankUpdate);
+            } elseif ($rank <= 250) {
+                $rankUpdate = "UPDATE users SET rank_ID = 5 WHERE ID = {$_SESSION['userid']}";
+                $rankQuery = mysqli_query($conn, $rankUpdate);
+            } elseif ($rank <= 500) { 
+                $rankUpdate = "UPDATE users SET rank_ID = 6 WHERE ID = {$_SESSION['userid']}";
+                $rankQuery = mysqli_query($conn, $rankUpdate);
+            }
+        }
+        unset($_POST['comSubmit']);
+        unset($_POST['comContent']);
     }
     echo "</div>";
 ?>
