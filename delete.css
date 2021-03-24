@@ -3,7 +3,7 @@
     padding: 0px;
 }
 
-#container{
+.container{
     width: 100%;
     height: 100%;
     display: flex;
@@ -22,7 +22,7 @@ body {
     font-weight: bold;
 }
 
-#form{
+.form{
     background-color: #85c0e6;
     margin-top:100px;
     border-radius: 10px;

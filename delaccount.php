@@ -23,8 +23,8 @@ $conn = connection();
     </div>
 </nav>
 
-<div id="container">
-    <div id="form">
+<div class="container">
+    <div class="form">
         <label for="delForm" id="label"> Potwierdź usuwanie konta </label>
         <form method="post" id="delForm">
             <input class="input" type="password" name="password" placeholder="hasło"> </br>
@@ -34,7 +34,7 @@ $conn = connection();
 </div>
 
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $password = sha1($_POST['password']);
     $getPass = "SELECT password FROM users WHERE login = \"{$_SESSION['user']}\"";
     $query = mysqli_query($conn, $getPass);
