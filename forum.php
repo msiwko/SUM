@@ -21,14 +21,19 @@ $userRank = mysqli_fetch_array($query)['rank_ID'];
     <img id="sumL" src="photos/sum.png">
     <img id="sumR" src="photos/sum.png">
     <div class="left">
-        <button class="button" name="profile" id="profile" href="profile.php"> profil </button>
     </div>
     <div class="middle">
-        <h1> SUM </h1>
-        <h2> Twoje forum wędkarskie </h2>
+        <a href="forum.php" id="up">
+            <h1> SUM </h1>
+            <h2> Twoje forum wędkarskie </h2>
+        </a>
     </div>
-    <div class="right">
-        <a href="index.php"> <button class="button" name="logout" id="logout"> wyloguj </button></a>
+    <div class="right" id="rup">
+        <img src="photos/settings.png" id="settings">
+        <div id="options">
+            <a href="index.php" id="logout"> Wyloguj się </a>
+            <a href="delaccount.php" id="delacc"> Usuń konto </a>
+        </div>
     </div>
 </nav>
 
@@ -129,7 +134,7 @@ $userRank = mysqli_fetch_array($query)['rank_ID'];
         header('location: forum.php');
     }
 
-    $getAllPosts = "SELECT content, post_ID, post_date, users.`login` FROM posts JOIN users ON users.`ID`=posts.`author_ID` ORDER BY post_ID DESC";
+    $getAllPosts = "SELECT content, post_ID, post_date, users.`login`, ranks.`rank_name` AS rank FROM posts JOIN users ON users.`ID`=posts.`author_ID` JOIN ranks ON ranks.`rank_id`=users.`rank_id` ORDER BY post_ID DESC";
     $allPostsQuery = mysqli_query($conn, $getAllPosts);
     $allPosts = mysqli_fetch_all($allPostsQuery, MYSQLI_ASSOC);
     echo
@@ -139,16 +144,16 @@ $userRank = mysqli_fetch_array($query)['rank_ID'];
         echo
         "<div class=\"post\">
             <div class=\"postHeader\">
-                <div id=\"leftHeader\"> {$post['login']} </div>
+                <div id=\"leftHeader\"> {$post['login']}({$post['rank']}) </div>
                 <div id=\"rightHeader\"> {$post['post_date']} </div>
             </div>
         {$post['content']}";
-        $getComms = "SELECT comment_content, users.`login` FROM comments JOIN users ON users.`ID`=comments.`comment_author_ID` WHERE post_ID = {$ID} ORDER BY post_ID, comment_ID DESC";
+        $getComms = "SELECT comment_content, users.`login`, ranks.`rank_name` AS rank FROM comments JOIN users ON users.`ID`=comments.`comment_author_ID` JOIN ranks ON ranks.`rank_id`=users.`rank_id` WHERE post_ID = {$ID} ORDER BY post_ID, comment_ID DESC";
         $CommsQuery = mysqli_query($conn, $getComms);
         $Comms = mysqli_fetch_all($CommsQuery, MYSQLI_ASSOC);
         foreach ($Comms as $Comment) {
             echo
-            "<div class=\"comment\"> {$Comment['login']}: {$Comment['comment_content']} </div>";
+            "<div class=\"comment\"> {$Comment['login']}({$Comment['rank']}): {$Comment['comment_content']} </div>";
         }
         echo
         "<br><br>
