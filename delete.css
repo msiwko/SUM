@@ -110,8 +110,3 @@ nav {
     display: flex;
     flex-direction: column;
 }
-
-#rup {
-    display: flex;
-    flex-direction: row-reverse;
-}

@@ -6,6 +6,9 @@ session_start();
 require 'head.php';
 require 'conn.php';
 $conn = connection();
+if ($_SESSION['logged'] !== true) {
+    header('location: /index.php');
+}
 ?>
 <nav>
     <img id="sumL" src="photos/sum.png">

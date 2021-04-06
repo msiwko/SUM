@@ -1,38 +1,133 @@
-* {
-    margin: 0;
-    padding: 0;
+*{
+    margin: 0px;
+    padding: 0px;
 }
+
 body {
     background-image: url("photos/background.jpg");
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-#name{
-    width: 400px;
+a {
+    text-decoration: none;
 }
 
-#container{
+#sumL {
+    position: absolute;
+    left: 650px;
+}
+
+#sumR {
+    position: absolute;
+    right: 650px;
+    transform: scaleX(-1);
+}
+
+nav {
+    width: 100%;
+    height: 11vh;
     display: flex;
-    align-items: flex-end;
+    flex-direction: row;
+    background: linear-gradient(to right bottom, RGBA(237, 247, 254, 0.3), RGBA(166, 216, 248, 0.3));
+    backdrop-filter: blur(10px);
+    position: -webkit-sticky;
+    position: sticky;
+    top: -1px;
+    z-index: 1;
+} 
+
+#up {
+    color: hsl(204, 98%, 23%);
+}
+
+.left {
+    width: 25vw;
+}
+
+.middle {
+    width: 50vw;
+    display: flex;
     flex-direction: column;
-    text-align: center;
+    /* justify-content: center; */
+}
+
+.middle h1{
+    display: flex;
     justify-content: center;
-    height: 100vh;
-    padding-bottom: 200px;
+    font-weight: bold;
 }
 
-.form {
+.middle h2{
     display: flex;
-    padding-right: 5%;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.right {
+    width: 25vw;
+    display: flex;
     flex-direction: column;
 }
 
-.btn.btn-primary{
-    width: 200px;
-    margin-top: 10px;
+.form{
+    background-color: #85c0e6;
+    padding: 0px;
+    margin-left: 40%;
+    margin-right: 40%;
+    display: flex;
+    justify-content: center;
+}
+
+.form:first-of-type{
+    padding-top: 25px;
+    margin-top: 50px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.form:last-of-type{
+    padding-bottom:15px;
 }
 
 .text{
-    width: 200px;
-    margin-bottom: 1px;
+    margin-top: 1px;
+    background-color: #daecf7;
+}
+
+#btns{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.button {
+    background-color: #5baadd;
+    border-radius: 10px;
+    border: solid 1px;
+    width: 5vw;
+    height: 5vh;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#mainbtn{
+    margin-top: 5px;
+    margin-left: 40px;
+}
+
+.regbutton{
+    background-color: #5baadd;
+    border-radius: 10px;
+    border: solid 1px;
+    width: 7vw;
+    height: 5vh;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#mainregbtn{
+    margin-top: 5px;
+    margin-left: 22px;
 }

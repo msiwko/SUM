@@ -11,23 +11,30 @@ unset($_SESSION['logged']);
 ?>
 
 <body>
-    <div id="container">
-        <div id="name">
-            <h1> SUM </h1>
-            <h2> Twoje forum wędkarskie </h2>
+    <nav>
+        <img id="sumL" src="photos/sum.png">
+        <img id="sumR" src="photos/sum.png">
+        <div class="left">
         </div>
-
-        <div class="form">
-            <form method="POST">
-                <input class="text" type="text" name="login" placeholder="nazwa użytkownika"> </br>
-                <input class="text" type="password" name="password" placeholder="hasło"> </br>
-                <button class="btn btn-primary" type="submit"> zaloguj się </button>
-            </form>
+        <div class="middle">
+            <a href="forum.php" id="up">
+                <h1> SUM </h1>
+                <h2> Twoje forum wędkarskie </h2>
+            </a>
         </div>
-        <div class="form">
-            <a href="registration.php"> <button class="btn btn-primary" type="submit"> rejestracja </button> </a>
-            <a href=passrecov.php> <button class="btn btn-primary" type="submit"> przywróć hasło </button> </a>
+        <div class="right" id="rup">
         </div>
+    </nav>
+    <div class="form">
+        <form method="POST">
+            <input class="text" type="text" name="login" placeholder="nazwa użytkownika"> </br>
+            <input class="text" type="password" name="password" placeholder="hasło"> </br>
+            <button class="button" type="submit" id="mainbtn"> zaloguj się </button>
+        </form>
+    </div>
+    <div class="form" id="btns">
+        <a href="registration.php"> <button class="button" type="submit"> rejestracja </button> </a>
+        <a href=passrecov.php> <button class="button" type="submit"> przywróć hasło </button> </a>
     </div>
 
     <?php
